@@ -1,12 +1,13 @@
-import { Menu, X, Home, Info, Phone } from "lucide-react";
+import { Menu, X, Home, Info, PlusCircle, HistoryIcon } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Link, Outlet } from "react-router-dom";
 
 const Navbar = () => {
   const menu = [
     { id: 1, label: "Home", path: "/", icon: <Home size={20} /> },
-    { id: 2, label: "About", path: "/about", icon: <Info size={20} /> },
-    { id: 3, label: "Contact", path: "/contact", icon: <Phone size={20} /> },
+    { id: 2, label: "New chat", path: "/", icon: <PlusCircle size={20} /> },
+    { id: 3, label: "About", path: "/about", icon: <Info size={20} /> },
+    { id: 4, label: "History", path: "/", icon: <HistoryIcon size={20} /> },
   ];
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -48,10 +49,9 @@ const Navbar = () => {
     const mediaQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
     setIsHoverCapable(mediaQuery.matches);
 
-    const handleMediaChange = (e: any) => {
+    const handleMediaChange = (e: MediaQueryListEvent) => {
       setIsHoverCapable(e.matches);
     };
-
     mediaQuery.addEventListener("change", handleMediaChange);
 
     const handleResize = () => {
@@ -61,7 +61,6 @@ const Navbar = () => {
     };
 
     window.addEventListener("resize", handleResize);
-
     return () => {
       mediaQuery.removeEventListener("change", handleMediaChange);
       window.removeEventListener("resize", handleResize);
@@ -79,19 +78,18 @@ const Navbar = () => {
 
       <aside
         className={`
-          absolute top-0 left-0 h-full bg-[#141414] text-white shadow-lg z-40
-          transform transition-all duration-300 ease-in-out
-          ${isMenuOpen ? "translate-x-0" : "-translate-x-full"} 
-          md:translate-x-0
-          ${isCollapsed ? "md:w-16" : "md:w-56"}
-        `}
+    fixed top-0 left-0 h-full bg-[#141414] text-white shadow-lg z-40
+    transform transition-all duration-300 ease-in-out
+    ${isMenuOpen ? "translate-x-0" : "-translate-x-full"} 
+    md:translate-x-0
+    ${isCollapsed ? "md:w-16" : "md:w-56"}
+  `}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
         <div className="flex items-center justify-between p-4 border-b border-gray-700">
           <div className="flex items-center w-full gap-2">
-            {!isCollapsed && <h2 className="text-lg font-bold">My App</h2>}
-
+            {!isCollapsed && <h2 className="text-lg font-bold">GoodOne</h2>}
             <button
               onClick={togglePin}
               className={`hidden md:block text-white hover:text-gray-300 transition-colors ${
@@ -108,7 +106,6 @@ const Navbar = () => {
             <X size={22} />
           </button>
         </div>
-
         <ul className="flex flex-col gap-2 mt-4 px-2">
           {menu.map((item) => (
             <li key={item.id}>
@@ -153,12 +150,7 @@ const Navbar = () => {
         />
       )}
 
-      <main
-        className={`
-          flex-1 overflow-y-auto px-5  transition-all duration-300 bg-[##191A1A]
-          ${isCollapsed ? "md:ml-16" : "md:ml-56"}
-        `}
-      >
+      <main className="flex-1 overflow-y-auto px-5 transition-all duration-300 bg-[#212121]">
         <Outlet />
       </main>
     </div>

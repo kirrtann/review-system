@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from "../pages/home";
 import About from "../pages/about";
 import Navbar from "../pages/navbar";
-import Contact from "../pages/contact";
+import Contact from "../pages/newchat";
 
 const AppRoutes = () => {
   return (
@@ -18,7 +18,7 @@ const AppRoutes = () => {
 
 const Layout = () => {
   return (
-    <div className="bg-[#181818] w-full font-serif text-white flex">
+    <div className="bg-[#181818] w-full font-sans text-white flex">
       <Navbar />
     </div>
   );
