@@ -41,7 +41,7 @@ const Home = () => {
             <input
               type="search"
               name="search"
-              placeholder="Get Movies,Web-series review"
+              placeholder="Get movies,web-series review"
               className="w-full px-10 py-4 text-lg text-white bg-transparent border border-gray-600 rounded-2xl"
             />
             <div className="absolute left-3 top-1/2 -translate-y-1/2">

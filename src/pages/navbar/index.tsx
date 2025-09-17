@@ -1,8 +1,9 @@
 import { Menu, X, Home, Info, PlusCircle, HistoryIcon } from "lucide-react";
 import { useState, useEffect } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 
 const Navbar = () => {
+  const location = useLocation();
   const menu = [
     { id: 1, label: "Home", path: "/", icon: <Home size={20} /> },
     { id: 2, label: "New chat", path: "/", icon: <PlusCircle size={20} /> },
@@ -71,19 +72,22 @@ const Navbar = () => {
     <div className="flex relative w-full">
       <button
         onClick={toggleMenu}
+        aria-expanded={isMenuOpen}
+        aria-label="Toggle menu"
         className="fixed top-4 left-4 z-50 md:hidden bg-[#141414] text-white p-2 rounded-lg shadow-lg"
       >
         {!isMenuOpen && <Menu size={22} />}
       </button>
 
       <aside
+        role="menu"
         className={`
-    fixed top-0 left-0 h-full bg-[#141414] text-white shadow-lg z-40
-    transform transition-all duration-300 ease-in-out
-    ${isMenuOpen ? "translate-x-0" : "-translate-x-full"} 
-    md:translate-x-0
-    ${isCollapsed ? "md:w-16" : "md:w-56"}
-  `}
+          fixed top-0 left-0 h-full bg-[#141414] text-white shadow-lg z-40
+          transform transition-transform duration-300 ease-in-out
+          ${isMenuOpen ? "translate-x-0" : "-translate-x-full"} 
+          md:translate-x-0
+          ${isCollapsed ? "md:w-16" : "md:w-56"}
+        `}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
@@ -92,11 +96,17 @@ const Navbar = () => {
             {!isCollapsed && <h2 className="text-lg font-bold">GoodOne</h2>}
             <button
               onClick={togglePin}
+              aria-label="Pin menu"
               className={`hidden md:block text-white hover:text-gray-300 transition-colors ${
                 isCollapsed ? "ml-0" : "ml-auto"
               }`}
             >
-              <Menu size={18} className="transition-transform duration-200" />
+              <Menu
+                size={18}
+                className={`transition-transform duration-300 ${
+                  isPinned ? "rotate-90" : ""
+                }`}
+              />
             </button>
           </div>
           <button
@@ -111,10 +121,15 @@ const Navbar = () => {
             <li key={item.id}>
               <Link
                 to={item.path}
+                role="menuitem"
                 onClick={handleLinkClick}
                 className={`
-                  flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 
-                  transition-colors group relative
+                  flex items-center gap-3 p-3 rounded-lg transition-colors group relative
+                  ${
+                    location.pathname === item.path
+                      ? "bg-gray-800 text-blue-400"
+                      : "hover:bg-[#2f2f2f]"
+                  }
                   ${isCollapsed ? "justify-center md:justify-start" : ""}
                 `}
                 title={isCollapsed ? item.label : ""}
@@ -125,8 +140,8 @@ const Navbar = () => {
                     transition-all duration-300 whitespace-nowrap
                     ${
                       isCollapsed
-                        ? "md:opacity-0 md:w-0 overflow-hidden"
-                        : "opacity-100"
+                        ? "md:opacity-0 md:w-0 -translate-x-3 overflow-hidden"
+                        : "opacity-100 translate-x-0"
                     }
                   `}
                 >
@@ -150,7 +165,10 @@ const Navbar = () => {
         />
       )}
 
-      <main className="flex-1 overflow-y-auto px-5 transition-all duration-300 bg-[#212121]">
+      <main
+        className={`flex-1 overflow-y-auto px-5 transition-all duration-300 bg-[#212121]
+        ${isPinned ? (isCollapsed ? "md:ml-16" : "md:ml-56") : "ml-0"}`}
+      >
         <Outlet />
       </main>
     </div>
