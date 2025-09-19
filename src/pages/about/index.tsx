@@ -1,7 +1,7 @@
 const About = () => {
   return (
-    <div className="p-6 max-w-3xl pt-10 mx-auto h-screen text-gray-200">
-      <h1 className="text-2xl font-bold mb-4">About This App</h1>
+    <section className="p-6 pt-10 max-w-3xl mx-auto h-screen text-gray-200">
+      <h1 className="text-2xl font-bold mb-6">About This App</h1>
       <p className="mb-4">
         This is a
         <span className="font-semibold">
@@ -17,17 +17,17 @@ const About = () => {
         <li>Audience ratings & responses</li>
         <li>Personalized recommendations</li>
       </ul>
-      <p className="mt-6 ">
+      <p className="mt-6">
         The goal of this platform is to bring together movie lovers and provide
-        <span className="font-semibold"> authentic public feedback </span> to
-        help you decide what to watch next.
+        <span className="font-semibold">authentic public feedback</span> to help
+        you decide what to watch next.
       </p>
-      <p className="mt-4  text-blue-300">
-        If you watch or search for any movie, the system will also suggest
+      <p className="mt-4 text-blue-300">
+        When you watch or search for any movie, the system will also suggest
         similar movies and web series — so you always find something new to
         enjoy!
       </p>
-    </div>
+    </section>
   );
 };
 export default About;
