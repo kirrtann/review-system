@@ -1,4 +1,4 @@
-import { Menu, X, Home, Info, PlusCircle } from "lucide-react";
+import { Menu, X, Home, Info } from "lucide-react";
 import { useState, useEffect, useMemo, type JSX } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 
@@ -13,12 +13,12 @@ const Navbar = () => {
   const menu: MenuItem[] = useMemo(
     () => [
       { id: 1, label: "Home", path: "/", icon: <Home size={20} /> },
-      {
-        id: 2,
-        label: "New Chat",
-        path: "/newchat",
-        icon: <PlusCircle size={20} />,
-      },
+      // {
+      //   id: 2,
+      //   label: "New Chat",
+      //   path: "/newchat",
+      //   icon: <PlusCircle size={20} />,
+      // },
       { id: 3, label: "About", path: "/about", icon: <Info size={20} /> },
     ],
     []
@@ -97,7 +97,7 @@ const Navbar = () => {
       >
         <div className="flex items-center justify-between p-4 border-b border-white/10">
           {!isCollapsed && (
-            <h2 className="text-lg font-semibold tracking-tight">GoodOne </h2>
+            <h2 className="text-lg font-semibold tracking-tight">Show-sage </h2>
           )}
           <button
             onClick={togglePin}

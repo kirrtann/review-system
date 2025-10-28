@@ -1,75 +1,74 @@
-import { SearchIcon, SendIcon } from "../../common/icons";
+import React, { useState } from "react";
+import type { MediaItem } from "../../type/type";
+import PageHeader from "../../common/PageHeader";
+import SearchBar from "../../common/SearchBar";
+import MovieCard from "../../common/MovieCard";
 import { moviedata } from "../Data/data";
-
-type Movie = {
-  movie: string;
-  suggtion: string;
-  genres: string;
-  actor: string;
-};
-
-const MovieCard: React.FC<Movie> = ({ movie, suggtion, genres, actor }) => (
-  <article>
-    <p>
-      <span className="font-semibold">Movie:</span> {movie}
-    </p>
-    <p>
-      <span className="font-semibold">Response:</span> {suggtion}
-    </p>
-    <p>
-      <span className="font-semibold">Genres:</span> {genres}
-    </p>
-    <p>
-      <span className="font-semibold">Actor:</span> {actor}
-    </p>
-  </article>
-);
+import ByMoviesTicket from "../../common/ByMoviesTicket";
 
 const Home: React.FC = () => {
-  const movies: Movie[] = moviedata;
-  const hasMovies = movies.length > 0;
+  const [query, setQuery] = useState("");
+  const [selectedMovie, setSelectedMovie] = useState<MediaItem | null>(null);
+
+  const filteredMovies = moviedata.filter((item) =>
+    item.title.toLowerCase().includes(query.toLowerCase())
+  );
+
+  const hasSearch = query.trim().length > 0;
 
   return (
-    <div
-      className={`flex h-screen ${
-        hasMovies ? "flex-col" : "items-center justify-center"
-      }`}
-    >
-      {hasMovies && (
-        <main className="flex-1 overflow-y-auto sm:px-4 mx-1 py-6 space-y-6">
-          <header className="text-right">
-            <span className="inline-block bg-[#323232d9] px-5 py-1 rounded-2xl">
-              K.G.F
-            </span>
-          </header>
-          <section className="rounded-2xl px-5 py-3 bg-[#1f1f1f] space-y-6">
-            {movies.map((data) => (
-              <MovieCard key={data.movie} {...data} />
-            ))}
-          </section>
-        </main>
-      )}
+    <>
+      <div className="min-h-screen  flex flex-col">
+        <PageHeader
+          title="Show-Sage"
+          subtitle="Search and explore top-rated Movies, Shows & Books"
+        />
 
-      <footer className="w-full max-w-2xl px-4 py-3">
-        <div className="relative flex items-center">
-          <input
-            type="text"
-            name="search"
-            placeholder="Movies, web-series review"
-            className="w-full px-10 py-3 text-lg text-white bg-transparent border border-gray-600 rounded-2xl"
+        <main className="flex-1 overflow-y-auto px-6 pb-16">
+          {hasSearch ? (
+            filteredMovies.length > 0 ? (
+              <>
+                <h2 className="text-xl font-semibold mb-4 text-gray-200">
+                  🔍 Results for “{query}”
+                </h2>
+
+                <section className="">
+                  {filteredMovies.map((item) => (
+                    <MovieCard
+                      key={item.id}
+                      item={item}
+                      onBook={() => setSelectedMovie(item)}
+                    />
+                  ))}
+                </section>
+              </>
+            ) : (
+              <div className="text-center text-gray-500 py-20">
+                No results found for “{query}”
+              </div>
+            )
+          ) : (
+            <div className="text-center text-gray-500 py-20">
+              Start typing to search for a movie, TV show, or book.
+            </div>
+          )}
+        </main>
+
+        <div className="px-6 mb-8">
+          <SearchBar
+            placeholder="Search movies, shows, books..."
+            onSearch={setQuery}
           />
-          <span className="absolute left-3 top-1/2 -translate-y-1/2">
-            <SearchIcon />
-          </span>
-          <button
-            type="submit"
-            className="absolute right-3 top-1/2 -translate-y-1/2 rotate-90"
-          >
-            <SendIcon />
-          </button>
         </div>
-      </footer>
-    </div>
+      </div>
+
+      {selectedMovie && (
+        <ByMoviesTicket
+          movie={selectedMovie}
+          onClose={() => setSelectedMovie(null)}
+        />
+      )}
+    </>
   );
 };
 
