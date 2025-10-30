@@ -18,7 +18,7 @@ const Home: React.FC = () => {
 
   return (
     <>
-      <div className="min-h-screen  flex flex-col">
+      <div className="min-h-screen flex flex-col">
         <PageHeader
           title="Show-Sage"
           subtitle="Search and explore top-rated Movies, Shows & Books"
@@ -29,10 +29,10 @@ const Home: React.FC = () => {
             filteredMovies.length > 0 ? (
               <>
                 <h2 className="text-xl font-semibold mb-4 text-gray-200">
-                  🔍 Results for “{query}”
+                  Results for “{query}”
                 </h2>
 
-                <section className="">
+                <section>
                   {filteredMovies.map((item) => (
                     <MovieCard
                       key={item.id}
@@ -62,7 +62,7 @@ const Home: React.FC = () => {
         </div>
       </div>
 
-      {selectedMovie && (
+      {selectedMovie && selectedMovie.type === "movie" && (
         <ByMoviesTicket
           movie={selectedMovie}
           onClose={() => setSelectedMovie(null)}

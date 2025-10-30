@@ -110,19 +110,22 @@ const MovieCard: React.FC<MovieCardProps> = ({ item, onBook }) => {
               {button.icon}
               {button.label}
             </button>
-
-            <button
-              onClick={() => item.trailer && setShowTrailer(true)}
-              disabled={!item.trailer}
-              className={`flex items-center justify-center gap-2 flex-1 py-2 rounded-xl text-white text-sm font-semibold transition-all duration-300 ${
-                item.trailer
-                  ? "bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400"
-                  : "bg-gray-700 text-gray-400 cursor-not-allowed"
-              }`}
-            >
-              <Film size={16} />
-              Watch Trailer
-            </button>
+            {item?.type === "movie" || item?.type === "tv_show" ? (
+              <button
+                onClick={() => item.trailer && setShowTrailer(true)}
+                disabled={!item.trailer}
+                className={`flex items-center justify-center gap-2 flex-1 py-2 rounded-xl text-white text-sm font-semibold transition-all duration-300 ${
+                  item.trailer
+                    ? "bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400"
+                    : "bg-gray-700 text-gray-400 cursor-not-allowed"
+                }`}
+              >
+                <Film size={16} />
+                Watch Trailer
+              </button>
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </div>

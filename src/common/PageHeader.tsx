@@ -8,7 +8,7 @@ interface HeaderProps {
 const PageHeader: React.FC<HeaderProps> = ({ title, subtitle }) => (
   <header className="text-center py-6">
     <h1 className="text-3xl font-extrabold ">{title}</h1>
-    {subtitle && <p className="text-gray-900 text-sm mt-2">{subtitle}</p>}
+    {subtitle && <p className="text-white text-sm mt-2">{subtitle}</p>}
   </header>
 );
 
