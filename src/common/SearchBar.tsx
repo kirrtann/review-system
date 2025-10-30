@@ -12,10 +12,10 @@ const SearchBar: React.FC<SearchBarProps> = ({
   onSearch,
 }) => {
   const [query, setQuery] = React.useState("");
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (onSearch) onSearch(query);
+    setQuery("");
   };
 
   return (
