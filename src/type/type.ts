@@ -2,7 +2,7 @@ import type { JSX } from "react";
 
 export type MediaItem = {
   id: string;
-  type: "movie" | "tv_show" | "book";
+  type: string;
   title: string;
   imdb?: string;
   public?: string;

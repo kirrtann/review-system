@@ -15,7 +15,6 @@ export type ButtonConfig = {
 const MovieCard: React.FC<MovieCardProps> = ({ item, onBook }) => {
   const [showTrailer, setShowTrailer] = useState(false);
   const image = item.poster || item.cover_image;
-  const type = item.type?.toLowerCase();
 
   const getButtonConfig = (type?: string): ButtonConfig => {
     const config: Record<string, ButtonConfig> = {
@@ -45,13 +44,13 @@ const MovieCard: React.FC<MovieCardProps> = ({ item, onBook }) => {
 
   return (
     <>
-      <div className="relative bg-gradient-to-b from-[#1e1e1e] to-[#111] w-full border border-gray-800 rounded-2xl overflow-hidden group hover:scale-[1.02] hover:shadow-[0_0_25px_rgba(255,255,255,0.15)] transition-all duration-300">
+      <div className="relative bg-gradient-to-b from-[#1e1e1e] to-[#111] w-full border border-gray-800 rounded-2xl overflow-hidden    ">
         <div className="relative">
           {image ? (
             <img
               src={image}
               alt={item.title}
-              className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105"
+              className="w-full h-64 object-cover "
             />
           ) : (
             <div className="w-full h-64 bg-gray-800 flex items-center justify-center text-gray-500 text-sm">
@@ -61,17 +60,12 @@ const MovieCard: React.FC<MovieCardProps> = ({ item, onBook }) => {
 
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent opacity-80" />
 
-          {type && (
+          {item?.type && (
             <span
-              className={`absolute top-3 left-3 text-xs uppercase font-semibold px-3 py-1 rounded-full text-white ${
-                type === "movie"
-                  ? "bg-yellow-600/90"
-                  : type === "tvshow"
-                  ? "bg-purple-600/90"
-                  : "bg-green-600/90"
-              }`}
+              className={`absolute top-3 left-3 text-xs uppercase font-semibold px-3 py-1 rounded-full text-white bg-green-600/90"
+              `}
             >
-              {type}
+              {item?.type}
             </span>
           )}
         </div>

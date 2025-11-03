@@ -133,7 +133,7 @@ const ByMoviesTicket: React.FC<ByMoviesTicketProps> = ({ movie, onClose }) => {
               Payment Successful 🎉
             </h3>
             <p className="text-gray-400 mb-3 text-center">
-              Your tickets for{" "}
+              Your tickets for
               <span className="text-yellow-400">{movie.title}</span> have been
               booked!
             </p>
